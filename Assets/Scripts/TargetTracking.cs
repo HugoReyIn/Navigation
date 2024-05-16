@@ -8,7 +8,6 @@ public class TargetTracking : MonoBehaviour
     public Transform[] goals;
     private NavMeshAgent agent;
     private int count;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -31,8 +30,9 @@ public class TargetTracking : MonoBehaviour
             {
                 count++;
             }
+            agent.SetDestination(goals[count].position);
         }
-        agent.SetDestination(goals[count].position);
+
 
     }
 }
