@@ -3228,7 +3228,7 @@ MonoBehaviour:
   - {fileID: 1805395754}
   - {fileID: 1727688306}
   player: {fileID: 2134889897}
-  detectionRadius: 8
+  detectionRadius: 5
 --- !u!114 &283069642
 MonoBehaviour:
   m_ObjectHideFlags: 0

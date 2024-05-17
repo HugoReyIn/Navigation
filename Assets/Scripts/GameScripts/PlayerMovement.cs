@@ -6,10 +6,12 @@ using UnityEngine.AI;
 public class PlayerMovement : MonoBehaviour
 {
     private NavMeshAgent player;
+    private Animator animator;
 
     void Start()
     {
         player = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -28,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             Vector3 targetPosition = hit.point;
+            animator.SetTrigger("Walk");
 
             player.SetDestination(targetPosition);
         }
