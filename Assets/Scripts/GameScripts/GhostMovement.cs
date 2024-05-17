@@ -6,33 +6,33 @@ using UnityEngine.AI;
 public class GhostMovement : MonoBehaviour
 {
     public Transform[] goals;
+    public Transform player;
     private NavMeshAgent agent;
-    private int count;
-    // Start is called before the first frame update
+    private int currentGoalIndex;
+    public float detectionRadius = 5f;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        count = 0;
-        agent.SetDestination(goals[count].position);
+        currentGoalIndex = 0;
+        agent.SetDestination(goals[currentGoalIndex].position);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        Debug.Log("target number" + count);
-        if (agent.remainingDistance <= 0)
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+        if (distanceToPlayer <= detectionRadius)
         {
-            if (count >= goals.Length - 1)
-            {
-                count = 0;
-            }
-            else
-            {
-                count++;
-            }
-            agent.SetDestination(goals[count].position);
+            agent.SetDestination(player.position);
         }
-
-
+        else
+        {
+            if (agent.remainingDistance <= 0.5f && !agent.pathPending)
+            {
+                currentGoalIndex = (currentGoalIndex + 1) % goals.Length;
+                agent.SetDestination(goals[currentGoalIndex].position);
+            }
+        }
     }
 }
