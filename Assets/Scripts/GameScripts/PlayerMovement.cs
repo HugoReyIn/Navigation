@@ -5,18 +5,31 @@ using UnityEngine.AI;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private NavMeshAgent player;
+
     void Start()
     {
-        
+        player = GetComponent<NavMeshAgent>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            MoveToPosition();
+        }
+    }
+
+    private void MoveToPosition()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            Vector3 targetPosition = hit.point;
+
+            player.SetDestination(targetPosition);
         }
     }
 }
